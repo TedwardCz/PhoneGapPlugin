@@ -84,7 +84,18 @@ public class MarketoPlugin extends CordovaPlugin {
                     }
                 });
                 return true;
-            } else if ("associateLead".equals(action)) {
+            } else if ("uninitializeMarketoPush".equals(action)) {
+                this.cordova.getThreadPool().execute(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        marketo.uninitializeMarketoPush();
+                        callbackContext.success();
+                    }
+                });
+                return true;
+            }
+            else if ("associateLead".equals(action)) {
                 final JSONObject jsonObject = new JSONObject(args.optString(0));
                 this.cordova.getThreadPool().execute(new Runnable() {
 
